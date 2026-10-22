@@ -1,0 +1,4 @@
+{"swp21": {"type": "swp",
+           "link": {"state": {"up": {}}, "speed": "400G"},
+           "lldp": {"neighbor": {"node7": {"chassis": {"chassis-id": "b8:3f:d2:00:07:00", "system-name": "node7"},
+                                           "port": {"id": "mlx5_3", "id-type": "if_name"}}}}}}

@@ -1,0 +1,72 @@
+# SPDX-License-Identifier: Apache-2.0
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "simhall"
+version = "0.1.0"
+description = "Virtual GPU hall: emulated Redfish BMCs, LLDP switches (Arista eAPI / NVIDIA NVUE), DCGM exporters and a minimal NetBox API, with fault injection, for testing turnup-check and Turnup Acceptance without hardware."
+readme = "README.md"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+requires-python = ">=3.12"
+authors = [{ name = "Hasanat Kazmi" }]
+keywords = ["redfish", "lldp", "dcgm", "netbox", "simulator", "gpu", "datacenter"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: System Administrators",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Topic :: System :: Hardware",
+  "Topic :: System :: Networking",
+]
+dependencies = [
+  "fastapi>=0.110",
+  "uvicorn>=0.27",
+  "pydantic>=2.5",
+  "httpx>=0.26",
+  "pyyaml>=6.0",
+  "click>=8.1",
+]
+
+[project.optional-dependencies]
+netbox = ["pynetbox>=7.0"]
+dev = ["pytest>=8", "pytest-timeout>=2.3", "hypothesis>=6.100", "ruff>=0.5"]
+
+[project.scripts]
+simhall = "simhall.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/turnup-dev/simhall"
+Repository = "https://github.com/turnup-dev/simhall"
+Issues = "https://github.com/turnup-dev/simhall/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+simhall = ["py.typed"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+timeout = 80
+addopts = "-q -p no:cacheprovider"
+filterwarnings = [
+  "ignore::DeprecationWarning",
+]
+
+[tool.ruff]
+line-length = 110
+target-version = "py312"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "W"]
+ignore = ["B008"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["simhall"]

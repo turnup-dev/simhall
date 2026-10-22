@@ -1,0 +1,1 @@
+{"label": "CBL-12-07-03", "a": {"device": "node7", "interface": "mlx5_3"}, "b": {"device": "leaf4", "interface": "swp21"}, "speed_gbps": 400}

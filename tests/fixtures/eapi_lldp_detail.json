@@ -1,0 +1,4 @@
+{"lldpNeighbors": {"Ethernet21": {"lldpNeighborInfo": [
+   {"chassisId": "b8:3f:d2:00:07:00", "chassisIdType": "macAddress",
+    "systemName": "node7",
+    "neighborInterfaceInfo": {"interfaceIdType": "interfaceName", "interfaceId": "mlx5_3", "interfaceDescription": "mlx5_3"}}]}}}

@@ -1,0 +1,46 @@
+# SPDX-License-Identifier: Apache-2.0
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: ruff + pytest (py${{ matrix.python }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+          cache: pip
+          cache-dependency-path: pyproject.toml
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[dev]"
+      - name: Lint
+        # Same scope as `make lint`: the README's Python block is laid out for reading, not for ruff format.
+        run: |
+          ruff check .
+          ruff format --check src tests
+      - name: Tests
+        run: python -m pytest -q
+      - name: Package builds
+        run: |
+          python -m pip install build
+          python -m build --sdist --wheel

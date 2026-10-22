@@ -1,0 +1,3 @@
+{"Id": "mlx5_3", "Name": "mlx5_3", "LinkStatus": "LinkUp", "CurrentSpeedGbps": 400,
+ "Ethernet": {"AssociatedMACAddresses": ["b8:3f:d2:00:07:03"],
+              "LLDPReceive": {"PortId": "swp21", "SystemName": "leaf4"}}}

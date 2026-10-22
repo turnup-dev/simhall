@@ -1,0 +1,1 @@
+{"jsonrpc": "2.0", "method": "runCmds", "params": {"version": 1, "cmds": ["show lldp neighbors detail", "show interfaces status"], "format": "json"}, "id": "turnup"}

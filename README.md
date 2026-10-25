@@ -5,7 +5,7 @@ devices a bring-up tool talks to, with fault injection and technician actions: R
 on Arista (eAPI) and NVIDIA (NVUE) leaves, DCGM exporters, and a minimal NetBox API. Apache-2.0.
 
 ```bash
-pip install simhall turnup-check
+pip install git+https://github.com/turnup-dev/simhall git+https://github.com/turnup-dev/turnup-check   # on PyPI from November 10, 2026
 simhall serve --golden hall-b &                                      # 127.0.0.1:8900, any token
 turnup-check --site hall-b --intent http://127.0.0.1:8900/netbox
 ```
@@ -41,8 +41,7 @@ fault sets against it in-process.
 ## Install
 
 ```bash
-pip install simhall                                     # Python 3.12+
-pip install git+https://github.com/turnup-dev/simhall   # or straight from this repository
+pip install git+https://github.com/turnup-dev/simhall   # Python 3.12+; on PyPI as `simhall` from November 10, 2026
 ```
 
 From a checkout: `pip install -e '.[dev]'`, then `simhall --help`. Dependencies: fastapi, uvicorn,

@@ -20,7 +20,7 @@ polling             lldp · redfish · dcgm
 fix          move cable one port up
 elapsed      0.4 s
 
-report       hall-b-2026-10-16.json
+report       hall-b-<YYYY-MM-DD>.json
 share stats  --telemetry opt-in (racks, links)
 
 # A technician seats the cable (or the fault is cleared), and the same command exits 0 with 288 / 288.

@@ -53,7 +53,9 @@ def test_golden_spec_export_and_serve_from_spec(tmp_path) -> None:
     assert r.exit_code == 0, r.output
     spec_file = SpecFile.from_mapping(yaml.safe_load(r.output))
     assert spec_file.cables is not None and len(spec_file.cables) == 288
-    assert [f.kind for f in spec_file.faults] == ["wrong_port"]
+    assert [f.kind for f in spec_file.faults] == [
+        "wrong_port", "link_degraded", "firmware_off_baseline", "gpu_unhealthy", "unreachable_node"
+    ]
     hall = spec_file.build("http://127.0.0.1:1234")
     assert hall.intent_cables["CBL-12-07-03"].b.interface == "swp21"
     assert hall.intent()["devices"][0]["mgmt"]["bmc_url"].startswith("http://127.0.0.1:1234/")

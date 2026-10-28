@@ -206,7 +206,9 @@ def test_actions_state_and_reset_over_http(client: httpx.Client) -> None:
     assert occupied.status_code == 409
     assert isinstance(client.get("/sim/history").json(), list)
     reset = client.post("/sim/reset").json()
-    assert reset["ok"] and [f["kind"] for f in reset["faults"]] == ["wrong_port"]
+    assert reset["ok"] and [f["kind"] for f in reset["faults"]] == [
+        "wrong_port", "link_degraded", "firmware_off_baseline", "gpu_unhealthy", "unreachable_node"
+    ]
     assert (
         client.get("/dev/leaf4/nvue_v1/interface").json()["swp22"]["lldp"]["neighbor"]["node7"]["port"]["id"]
         == "mlx5_3"

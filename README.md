@@ -13,18 +13,34 @@ turnup-check --site hall-b --intent http://127.0.0.1:8900/netbox
 ```
 reading intent      288 links · 18 nodes · 2 leaves
 polling             lldp · redfish · dcgm
-✓ 287 / 288 links match intent
-✓ 18 / 18 nodes reachable, firmware baseline ok
+✓ 286 / 288 links match intent
+✓ 17 / 18 nodes reachable, firmware off baseline
 ✗ mismatch   node7 mlx5_3 → leaf4/22
              expected leaf4/21
 fix          move cable one port up
-elapsed      0.4 s
+✗ degraded   node11 mlx5_5 → leaf4/83 200G
+             expected leaf4/83 up 400G
+fix          check transceivers and cable CBL-12-11-05 at leaf4/83 (200G negotiated, intent 400G)
+✗ firmware   node4 bmc 1.09.2
+             expected 1.12.0
+fix          update bmc on node4 to 1.12.0
+✗ gpu        node14 gpu2 XID 79
+             expected healthy
+fix          drain node14 and open an RMA packet for GPU 2
+✗ offline    node17 redfish unreachable: timeout after 3 s
+fix          check BMC reachability and credentials for node17
+elapsed      3.2 s
 ```
 
-A technician seats the cable, and the same command exits 0 with `288 / 288`:
+The golden hall `hall-b` is a hall handed over with every light green: five faults of four kinds, one node
+each. A technician moves the cable one port up, reseats the degraded one and applies the firmware update, and
+the same command prints `288 / 288 links match intent`, `firmware baseline ok` and the two findings that
+stay open (the GPU with the XID, the BMC that does not answer) until the trays are replaced:
 
 ```bash
 simhall act '{"kind":"seat_cable","label":"CBL-12-07-03","b_interface":"swp21"}'
+simhall act '{"kind":"seat_cable","label":"CBL-12-11-05"}'
+simhall act '{"kind":"update_firmware","device":"node4","component":"bmc","version":"1.12.0"}'
 ```
 
 Everything here is synthetic: no real hostnames, IPs, serial numbers or topologies. The intent it emits

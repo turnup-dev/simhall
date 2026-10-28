@@ -43,7 +43,7 @@ def subset(expected: Any, actual: Any, path: str = "$") -> None:
 
 @pytest.fixture
 def golden() -> Hall:
-    """hall-b with its one wrong_port fault, as `simhall serve --golden hall-b` builds it."""
+    """hall-b with its five start-up faults (wrong_port first), as `simhall serve --golden hall-b` builds it."""
     return build_golden()
 
 
